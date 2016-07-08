@@ -23,6 +23,7 @@ class PythonRecipe(Recipe):
         # common to all archs
         if  self.has_marker("patched"):
             return
+        self.apply_patch("allow-buggy-ipv6-getaddrinfo.patch")
         self.apply_patch("ssize-t-max.patch")
         self.apply_patch("dynload.patch")
         self.apply_patch("static-_sqlite3.patch")
@@ -50,6 +51,7 @@ class PythonRecipe(Recipe):
                 "--prefix=/python",
                 "--with-system-ffi",
                 "--without-doc-strings",
+                "--enable-ipv6",
                 _env=build_env)
 
         self._patch_pyconfig()
